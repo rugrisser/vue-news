@@ -1,5 +1,7 @@
 # vue-news
 
+**Using plugins: AXIOS, Vuetify**
+
 ## Project setup
 ```
 npm install
