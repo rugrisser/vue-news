@@ -7,7 +7,7 @@
                 color="teal">
             <v-toolbar-title>Новостной Агрегатор</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-menu bottom left min-width="120px" max-height="300px">
+            <v-menu bottom left min-width="100px" max-height="300px">
                 <template v-slot:activator="{ on }">
                     <v-btn icon color="white" v-on="on">
                         <v-icon>mdi-dots-vertical</v-icon>
@@ -35,7 +35,8 @@
                                 v-bind:title="article.title"
                                 v-bind:img_url="article.urlToImage"
                                 v-bind:author="article.author"
-                                v-bind:text="article.description"/>
+                                v-bind:text="article.description"
+                                v-bind:url="article.url"/>
                     </v-col>
                 </v-row>
             </v-container>
