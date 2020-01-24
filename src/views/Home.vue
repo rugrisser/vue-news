@@ -6,6 +6,24 @@
                 dark
                 color="teal">
             <v-toolbar-title>Новостной Агрегатор</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-menu bottom left min-width="120px" max-height="300px">
+                <template v-slot:activator="{ on }">
+                    <v-btn icon color="white" v-on="on">
+                        <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                </template>
+                <v-list shaped>
+                    <v-list-item
+                            v-for="(language, index) in languages"
+                            link
+                            color="teal darken-2"
+                            :to="language"
+                            :key="index">
+                        <v-list-item-title>{{ language }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </v-app-bar>
         <v-content>
             <v-container>
@@ -37,6 +55,7 @@
             success: true,
             lang_err: false,
             list: [],
+            lang: 'ru',
             languages: [
                 'ae', 'ar', 'at', 'au', 'be', 'bg', 'br', 'ca', 'ch', 'cn', 'co', 'cu', 'cz', 'de', 'eg', 'fr', 'gb',
                 'gr', 'hk', 'hu', 'id', 'ie', 'il', 'in', 'it', 'jp', 'kr', 'lt', 'lv', 'ma', 'mx', 'my', 'ng', 'nl',
@@ -45,17 +64,22 @@
             ]
         }),
         watch: {
+            lang: {
+                handler() {
+                    this.lang_err = false;
+                }
+            },
             $route: {
                 handler() {
 
-                    let lang = this.$route.params.lang;
+                    this.lang = this.$route.params.lang;
 
-                    if ((lang === undefined) || (this.languages.indexOf(lang) === -1)) {
-                        lang = 'ru';
+                    if ((this.lang === undefined) || (this.languages.indexOf(this.lang) === -1)) {
+                        this.lang = 'ru';
                         this.lang_err = true;
                     }
 
-                    let url = 'https://newsapi.org/v2/top-headlines?country=' + lang + '&apiKey=d7f41a32c26b4bbfb596d58b1a54c766';
+                    let url = 'https://newsapi.org/v2/top-headlines?country=' + this.lang + '&apiKey=d7f41a32c26b4bbfb596d58b1a54c766';
                     this.axios.get(url).then((response) => {
                         if (response.data.status != "ok")
                             this.success = false;
