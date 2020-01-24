@@ -1,6 +1,6 @@
 # vue-news
 
-**Using plugins: AXIOS, Vuetify**
+**Using plugins: AXIOS, Vuetify, Vue Router**
 
 ## Project setup
 ```
