@@ -1,57 +1,28 @@
 <template>
-    <v-app>
-        <v-app-bar
-                absolute
-                app
-                dark
-                color="teal">
-            <v-toolbar-title>Новостной Агрегатор</v-toolbar-title>
-        </v-app-bar>
-        <v-content>
-            <v-container>
-                <v-alert v-if="success" outlined type="error">Возникла ошибка при получении данных с сервера. Обновите страницу или зайдите позже</v-alert>
-                <v-row>
-                    <v-col :key="index" cols="12" md="4" lg="4" xl="4" v-for="(article, index) in list">
-                        <Article
-                                v-bind:title="article.title"
-                                v-bind:img_url="article.urlToImage"
-                                v-bind:author="article.author"
-                                v-bind:text="article.description"/>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-content>
-    </v-app>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
-<script>
-    import Article from "@/components/Article";
+<style lang="scss">
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-    export default {
-        name: 'App',
+#nav {
+  padding: 30px;
 
-        components: {
-            Article
-        },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-        data: () => ({
-            success: true,
-            list: []
-        }),
-
-        mounted() {
-
-            let url = "https://newsapi.org/v2/top-headlines?country=ru&apiKey=d7f41a32c26b4bbfb596d58b1a54c766";
-
-            this.axios.get(url).then((response) => {
-
-                if (response.data.status != "ok")
-                    this.success = false;
-                else
-                    this.list = response.data.articles;
-
-            })
-
-        }
-    };
-</script>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
